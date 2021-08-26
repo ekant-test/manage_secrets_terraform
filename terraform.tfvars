@@ -1,0 +1,10 @@
+## Variable Definition ##
+database_instance_type = "db.t3.micro"
+database_engine_type = "mysql"
+database_engine_version = "5.7"
+database_storage_size = "20"
+database_skip_final_snapshot = "true"
+database_multi_az = "false"
+database_backup_retention_period = "2"
+database_backup_window = "19:00-19:30"
+database_maintenance_window = "Sun:15:00-Sun:17:00"

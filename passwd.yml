@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Generate DataBase Password
+      set_fact:
+        password: "{{ lookup('password', '/dev/null length=28 chars=ascii_letters,digits,.-_') }}"
+        #      no_log: true
+    - name: Store Database Administrator Password in Secret Manager
+      aws_secret:
+        name: "test-rds"
+        secret_type: string
+        secret: "{{ dict(username=username, password=password) | to_json }}"
+        #  no_log: true
+    - name: Update Database Administrator Password
+      command: aws rds modify-db-instance --db-instance-identifier "{{ instance_id }}" --master-user-password "{{ password }}" --apply-immediately
+      # no_log: true
